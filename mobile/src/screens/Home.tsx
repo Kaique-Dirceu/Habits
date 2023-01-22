@@ -1,6 +1,6 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import dayjs from "dayjs";
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { View, Text, ScrollView, Alert } from "react-native"
 import { HabitDay, DAY_SIZE } from "../components/HabitDay"
 import { Header } from "../components/Header"
@@ -40,9 +40,9 @@ export function Home() {
     }
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     fetchData()
-  }, [])
+  }, []))
 
   if (loading) {
     return (
@@ -91,6 +91,7 @@ export function Home() {
         {
           amountOfDaysToFill > 0 && Array.from({ length: amountOfDaysToFill }).map((_, i) => (
             <View 
+              key={i}
               className="bg-zinc-900 rounded-lg border-2 m-1 border-zinc-800 opacity-40"
               style={{ width: DAY_SIZE, height: DAY_SIZE }}
             />
